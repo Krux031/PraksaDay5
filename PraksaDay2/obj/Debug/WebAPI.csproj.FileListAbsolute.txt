@@ -77,3 +77,5 @@ C:\Users\user\source\repos\PraksaDay2Solution\PraksaDay2\bin\CityService.dll
 C:\Users\user\source\repos\PraksaDay2Solution\PraksaDay2\bin\CityService.pdb
 C:\Users\user\source\repos\PraksaDay2Solution\PraksaDay2\bin\CityRepository.dll
 C:\Users\user\source\repos\PraksaDay2Solution\PraksaDay2\bin\CityRepository.pdb
+C:\Users\user\source\repos\PraksaDay2Solution\PraksaDay2\bin\RestModel.dll
+C:\Users\user\source\repos\PraksaDay2Solution\PraksaDay2\bin\RestModel.pdb

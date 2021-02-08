@@ -13,26 +13,26 @@ namespace CityService
 {
     public class Service : ICityService
     {
-        protected ICityRepository Repository = new Repository();
+        protected ICityRepository repository = new Repository();
 
         public async Task<City> GetCity(int id)
         {
-            return await Repository.GetCityRep(id);
+            return await repository.GetCityRep(id);
         }
 
         public async Task<List<City>> GetAllCity()
         {
-            return await Repository.GetAllCityRep();
+            return await repository.GetAllCityRep();
         }
 
         public async Task<bool> DeleteResident(int id)
         {
-            return await Repository.DeleteresidentRep(id);
+            return await repository.DeleteresidentRep(id);
         }
 
         public async Task<bool> PostResident(Residents res, int id)
         {
-            return await Repository.PostResidentRep(res, id);
+            return await repository.PostResidentRep(res, id);
         }
     }
 }

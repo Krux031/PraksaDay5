@@ -10,6 +10,7 @@ using CityServiceCommon;
 using CityModelCommon;
 using CityModel;
 using CityService;
+using RestModel;
 using System.Threading.Tasks;
 
 namespace PraksaDay2.Controllers
@@ -17,35 +18,45 @@ namespace PraksaDay2.Controllers
     [RoutePrefix("api/Hello")]
     public class HelloController : ApiController
     {
-        protected ICityService Service = new Service();
-
-        public City rezultat = new City();
-        public List<City> rezultati = new List<City>();
+        protected ICityService service = new Service();
 
         [HttpGet]
         [Route("Get/{id}")]
         public async Task<HttpResponseMessage> Get(int id)
         {
-            rezultat = await Service.GetCity(id);
+            City rezultat;
+            GetViewModel pogled = new GetViewModel();
+
+            rezultat = await service.GetCity(id);
+
             if (rezultat != null)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, rezultat);
+                pogled.Naziv = rezultat.Naziv;
+                return Request.CreateResponse(HttpStatusCode.OK, pogled);
             }
             else
             {
                 return Request.CreateResponse(HttpStatusCode.NoContent, "No content");
             }
-            
+
         }
 
         [HttpGet]
         [Route("Get/All")]
         public async Task<HttpResponseMessage> GetAll()
         {
-            rezultati =await Service.GetAllCity();
+            List<City> rezultati;
+            List<GetViewModel> pogled = new List<GetViewModel>();
+
+            rezultati = await service.GetAllCity();
+
             if (rezultati != null)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, rezultati);
+                foreach(City rez in rezultati)
+                {
+                    pogled.Add(new GetViewModel { Naziv=rez.Naziv });
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, pogled);
             }
             else
             {
@@ -58,7 +69,7 @@ namespace PraksaDay2.Controllers
         [Route("Delete/Resident/{id}")]
         public async Task<HttpResponseMessage> Delete(int id)
         {
-            if (await Service.DeleteResident(id) == true)
+            if (await service.DeleteResident(id) == true)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, "OK");
             }
@@ -70,101 +81,23 @@ namespace PraksaDay2.Controllers
 
         [HttpPost]
         [Route("Post/Resident/{id}")]
-        public async Task<HttpResponseMessage> Post([FromBody] Residents res, int id)
+        public async Task<HttpResponseMessage> Post([FromBody] PostViewModel res, int id)
         {
-            if(await Service.PostResident(res,id) == true)
+            Residents stanovnik = new Residents();
+
+            if (res.Ime != null) { stanovnik.Ime = res.Ime; } else { stanovnik.Ime = ""; }
+            if (res.Prezime != null) { stanovnik.Prezime = res.Prezime; } else { stanovnik.Prezime = ""; }
+            if (res.Pbr != null) { stanovnik.Pbr = Int32.Parse(res.Pbr); } else { stanovnik.Pbr = 0; }
+            if (res.Spol != null) { stanovnik.Spol = res.Spol; } else { stanovnik.Spol = ""; }
+
+            if (await service.PostResident(stanovnik, id) == true)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, "OK");
             }
             else
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Bad Request");
-            }           
+            }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //public static List<string> popis = new List<string>() { "kruh", "mlijeko" , "jaja", "riza", "banane", "sok"};
-
-            //SqlCommand dohvati = null;
-            //SqlTransaction transaction;
-            //public static SqlConnection konekcija = new SqlConnection(@"Server=tcp:kruninserver.database.windows.net,1433;Initial Catalog=kruninabaza;Persist Security Info=False;User ID=krux031;Password=sifra;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-
-            //public HttpResponseMessage Get()
-            //{
-            //    dohvati = new SqlCommand("select * from stanovnici", konekcija);
-            //    string tekst = "";
-
-            //    try
-            //    {
-            //        if (konekcija.State == ConnectionState.Closed) 
-            //        {
-            //            konekcija.Open();
-            //        }
-            //        //konekcija.BeginTransaction();
-            //        SqlDataReader reader = dohvati.ExecuteReader();
-
-            //        while (reader.Read())
-            //        {
-            //            tekst = tekst + "<br />" + reader.GetString(1)+ " " + reader.GetString(2) + " " + reader.GetString(4);
-            //        }
-
-            //        //transaction.Commit();
-            //        return Request.CreateResponse(HttpStatusCode.OK, tekst);
-            //    }
-            //    catch (SqlException Ex)
-            //    {
-            //        transaction.Rollback();
-            //        return Request.CreateResponse(HttpStatusCode.NoContent, "No Content");
-            //    } 
-            //    finally
-            //    {
-            //        if (konekcija.State == ConnectionState.Open)
-            //            konekcija.Close();
-            //    }
-
-            //    //return popis;
-            //}
-            //public HttpResponseMessage Post([FromBody]string item)
-            //{
-            //    popis.Add(item);
-            //    return Request.CreateResponse(HttpStatusCode.OK, "OK");
-            //}
-            //public HttpResponseMessage Put ([FromBody] string item)
-            //{
-            //    if(popis.Contains(item) == false)
-            //    {
-            //        popis.Add(item);
-            //        return Request.CreateResponse(HttpStatusCode.Created, "Created");
-            //    }
-            //    else
-            //    {
-            //        return Request.CreateResponse(HttpStatusCode.NoContent, "No Content");
-            //    }
-
-            //}
-            //public HttpResponseMessage Delete([FromBody] string item)
-            //{
-            //    if (popis.Contains(item) == true)
-            //    {
-            //        popis.Remove(item);
-            //        return Request.CreateResponse(HttpStatusCode.OK, "OK");
-            //    }
-            //    else
-            //    {
-            //        return Request.CreateResponse(HttpStatusCode.NotFound, "Not Found");
-            //    }
-            //}
-
-        }
+    }
 }

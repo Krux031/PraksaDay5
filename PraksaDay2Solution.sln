@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CityModel", "CityModel\City
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CityModelCommon", "CityModelCommon\CityModelCommon.csproj", "{C52F978A-4CC9-4887-92E5-9693A375C805}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestModel", "RestModel\RestModel.csproj", "{14B49D33-3681-4562-B507-36EE5E623820}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{C52F978A-4CC9-4887-92E5-9693A375C805}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C52F978A-4CC9-4887-92E5-9693A375C805}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C52F978A-4CC9-4887-92E5-9693A375C805}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14B49D33-3681-4562-B507-36EE5E623820}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14B49D33-3681-4562-B507-36EE5E623820}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14B49D33-3681-4562-B507-36EE5E623820}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14B49D33-3681-4562-B507-36EE5E623820}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

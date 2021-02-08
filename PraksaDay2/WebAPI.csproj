@@ -121,6 +121,10 @@
       <Project>{d6a9d729-6ce8-4a64-940f-dec6c034c2c8}</Project>
       <Name>CityService</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RestModel\RestModel.csproj">
+      <Project>{14b49d33-3681-4562-b507-36ee5e623820}</Project>
+      <Name>RestModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
